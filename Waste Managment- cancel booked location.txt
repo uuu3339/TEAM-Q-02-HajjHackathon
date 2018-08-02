@@ -1,0 +1,14 @@
+$locations_canceled=array();
+if(is_array(@=location_cancel) and count(@=location_cancel) >0 ){
+	foreach(@=location_cancel as $row){
+		if($row['SELECT']==1){
+		array_push($locations_canceled,$row);	
+		}
+	}
+}
+if(!empty($locations_canceled)){
+	foreach($locations_canceled as $location_canceled){
+		executeQuery("DELETE FROM PMT_WASTE_SITE_BOOKING WHERE LOCATION_ID= {$location_canceled['ID']} and START_DATE2= '{$location_canceled['START_DATE2']}' and END_DATE2=' {$location_canceled['END_DATE2']}' ");
+	}
+	
+}

@@ -1,0 +1,19 @@
+
+$today = date('Y-m-d h:i:s');
+
+executeQuery("DELETE FROM PMT_WASTE_SITE_BOOKING WHERE END_DATE2 < '{$today}'");
+$USER_ID = @@USER_LOGGED;
+$start_date = @@START_DATE2;
+$end_date = @@END_DATE2;
+
+$locations = executeQuery("SELECT * FROM `PMT_WASTE_SITE_BOOKING` WHERE USER_ID = '{$USER_ID}' ");
+if (is_array($locations) and count($locations) > 0) {
+	foreach( $locations as $key => $location ) {
+		$result = executeQuery("SELECT ID, LOCATION_NUMBER, LOCATION_NAME FROM "." PMT_WASTE_SITE_LIST WHERE ID = {$location['LOCATION_ID']}");
+		
+		$locations[$key]['ID'] = $result[1]['ID'];
+		$locations[$key]['LOCATION_NUMBER'] = $result[1]['LOCATION_NUMBER'];
+		$locations[$key]['LOCATION_NAME'] = $result[1]['LOCATION_NAME'];
+	}
+	@=location_cancel = $locations; 
+}

@@ -1,0 +1,11 @@
+$result= executeQuery("SELECT SITE_NUMBER , SITE_AREA FROM PMT_FOOD_SITE_LIST WHERE SITE_AREA= 'mina'");
+@@grid_mina=$result;
+
+$result= executeQuery("SELECT SITE_NUMBER AS SITE_NUMBER2  , SITE_AREA AS SITE_AREA2 FROM PMT_FOOD_SITE_LIST WHERE SITE_AREA='arafa'");
+@@grid_arafa=$result;
+
+$result= executeQuery("SELECT SITE_NUMBER AS SITE_NUMBER3 , SITE_AREA AS SITE_AREA3 FROM PMT_FOOD_SITE_LIST WHERE SITE_AREA='muzdalefa'");
+@@grid_muzdalefa=$result;
+
+$result= executeQuery("SELECT SITE_NUMBER AS SITE_NUMBER4 , SITE_AREA AS SITE_AREA4 FROM PMT_FOOD_SITE_LIST WHERE SITE_AREA='algamarat'");
+@@grid_algamarat=$result;

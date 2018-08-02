@@ -1,0 +1,19 @@
+
+$today = date('Y-m-d h:i:s');
+
+executeQuery("DELETE FROM PMT_FOOD_SITE_BOOKING WHERE END_DATE < '{$today}'");
+$USER_ID = @@USER_LOGGED;
+$start_date = @@START_DATE;
+$end_date = @@END_DATE;
+
+$sites = executeQuery("SELECT * FROM `PMT_FOOD_SITE_BOOKING` WHERE USER_ID = '{$USER_ID}' ");
+if (is_array($sites) and count($sites) > 0) {
+	foreach( $sites as $key => $site ) {
+		$result = executeQuery("SELECT ID, SITE_NUMBER, SITE_AREA FROM "." PMT_FOOD_SITE_LIST WHERE ID = {$site['SITE_ID']}");
+		
+		$sites[$key]['ID'] = $result[1]['ID'];
+		$sites[$key]['SITE_NUMBER'] = $result[1]['SITE_NUMBER'];
+		$sites[$key]['SITE_AREA'] = $result[1]['SITE_AREA'];
+	}
+	@=site_cancel = $sites; 
+}

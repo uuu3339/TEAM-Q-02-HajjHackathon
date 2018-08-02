@@ -1,0 +1,18 @@
+$locations_booked = array( );
+foreach (@=grid_booking2 as $row) {
+	if ( $row['SELECT'] == 1 ) {
+		array_push($locations_booked, $row);
+	}
+}
+
+$USER_ID = @@USER_LOGGED;
+$start_date = @@START_DATE2;
+$end_date = @@END_DATE2;
+if (!empty($locations_booked) and count ($locations_booked) !=0) {
+	foreach ($locations_booked as $location_booked) {
+
+		executeQuery("INSERT INTO PMT_WASTE_SITE_BOOKING VALUES "."
+					 (' ', {$location_booked['ID']}, '{$start_date}', '{$end_date}', '{$USER_ID}')");
+	}
+	
+}

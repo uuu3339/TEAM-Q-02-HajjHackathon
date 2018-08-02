@@ -1,0 +1,43 @@
+
+$today = date('Y-m-d h:i:s');
+
+executeQuery("DELETE FROM PMT_WASTE_SITE_BOOKING WHERE END_DATE2 < '{$today}'");
+
+$start_date = @@START_DATE2;
+$end_date = @@END_DATE2;
+
+$locations_id = executeQuery("SELECT LOCATION_ID FROM `PMT_WASTE_SITE_BOOKING` WHERE 
+(START_DATE2 <= '{$end_date}' and START_DATE2 >= '{$start_date}') or 
+(START_DATE2 < '{$start_date}' and END_DATE2 > '{$start_date}') or 
+(END_DATE2 <= '{$end_date}' and START_DATE2 = '{$start_date}') ");
+
+if (is_array($locations_id) and count($locations_id) > 0) {
+	$n = count($locations_id);
+	for ( $i = 1; $i <= $n;  $i++ ) {
+		for ($j = 1; $j <= $n; $j++){
+			if ($locations_id[$i]['LOCATION_ID'] == $locations_id[$j]['LOCATION_ID']) {
+				if ( $i != $j ) {
+					unset($locations_id[$j]);
+					$n--;
+				}
+			}	
+		}	
+	}
+}
+$all_locations = executeQuery("SELECT ID FROM PMT_WASTE_SITE_LIST");
+if (is_array($all_locations) and count($all_locations) > 0) {
+	foreach ( $locations_id as $location_id ) {
+		foreach($all_locations as $key => $location) {
+			if ( in_array($location_id['LOCATION_ID'], $location) ) {
+				unset($all_locations[$key]);	
+			}	
+		}
+	}
+	$empty_locations = array(null);
+	foreach($all_locations as $location) {
+		$empty_location = executeQuery("SELECT ID, LOCATION_NUMBER, LOCATION_NAME FROM ". "PMT_WASTE_SITE_LIST WHERE ID = {$location['ID']}");
+		array_push($empty_locations, $empty_location[1]);
+	}
+	unset($empty_locations[0]);
+	@@grid_booking2 = $empty_locations;
+}
