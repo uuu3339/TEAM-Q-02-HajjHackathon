@@ -1,7 +1,0 @@
-executeQuery("DELETE FROM PMT_FOOD_SITE_LIST"); //delete all rows in table
-foreach (@=food_management as $food) {
-	if (is_array($food) and count($food) != 0) {
-		executeQuery("INSERT INTO PMT_FOOD_SITE_LIST VALUES " .
-		   "(' '  , '{$food['SITE_NUMBER']}', '{$food['SITE_AREA']}')");
-	}
-}
