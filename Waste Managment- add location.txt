@@ -1,2 +1,0 @@
-$result=executeQuery("SELECT LOCATION_NUMBER, LOCATION_NAME FROM PMT_WASTE_SITE_LIST");
-@@waste_management=$result;
