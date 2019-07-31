@@ -1,3 +1,0 @@
-$result=executeQuery("SELECT SITE_NUMBER, SITE_AREA FROM PMT_FOOD_SITE_LIST");
-@@food_management=$result;
-
