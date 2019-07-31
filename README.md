@@ -1,1 +1,0 @@
-# TEAM-Q-02-HajjHackathon
